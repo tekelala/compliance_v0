@@ -88,8 +88,6 @@ if st.button('Extraer'):
             # Display the result
             st.write(st.session_state.result)
 
-st.title('Información para compliance')
-
 # Allow the user to propose changes
 if st.session_state.result != "":
     user_changes = st.text_input('¿Qué más quieres del archivo?')
