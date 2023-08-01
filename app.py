@@ -10,7 +10,7 @@ if "result" not in st.session_state:
     st.session_state.result = ""
 
 # Claude functions
-def create_text(prompt, temperature):
+def create_text(prompt):
     api_url = "https://api.anthropic.com/v1/complete"
     headers = {
         "Content-Type": "application/json",
