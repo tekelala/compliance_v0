@@ -52,7 +52,7 @@ def create_text(prompt):
 
 # Function to create the prompt for the decks generation
 def prompt_compliance(text_file):
-    prompts = f'''Role: Extract from the file the "Razón Social'''
+    prompts = f'''Role: Extract from the {text_file} file the "Razón Social'''
 
     return prompts
 
