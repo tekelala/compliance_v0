@@ -52,7 +52,7 @@ def create_text(prompt):
 
 # Function to create the prompt for the decks generation
 def prompt_compliance(text_file):
-    prompts = f'''Role: You are Nancy Duarte part of the Kravata team an expert in crafting slide Decks for startups.'''
+    prompts = f'''Role: Extract from the file the "Razón Social'''
 
     return prompts
 
@@ -63,7 +63,7 @@ def read_pdf(file):
         text += pdf.getPage(page).extractText()
     return text
 
-st.title('PDF Reader')
+st.title('Compliance Prueba de concepto extraer info')
 
 uploaded_files = st.file_uploader("Choose PDF files", type="pdf", accept_multiple_files=True)
 
@@ -75,7 +75,7 @@ for file in uploaded_files:
     all_text_df = pd.DataFrame({'All Text': [text]})
     df_all_text = pd.concat([df_all_text, all_text_df], ignore_index=True)
 
-st.title('Compliance')
+st.title('Información para compliance')
 
 if st.button('Create'):
     with st.spinner('Writing...'):
@@ -91,10 +91,10 @@ if st.button('Create'):
 
 # Allow the user to propose changes
 if st.session_state.result != "":
-    user_changes = st.text_input('Propose changes to the deck:')
-    if st.button('Apply Changes'):
+    user_changes = st.text_input('¿Qué más quieres del archivo?')
+    if st.button('Responder'):
         if user_changes:
-            st.session_state.prompts += f" Please change the communications piece with the following instructions: {user_changes.strip()}"
+            st.session_state.prompts += f" Please follow these instructions: {user_changes.strip()}"
             with st.spinner('Applying changes...'):
                 st.session_state.result = create_text(st.session_state.prompts)
             st.write(st.session_state.result)
