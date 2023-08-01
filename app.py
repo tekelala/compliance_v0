@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import json
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfReader
 import pandas as pd
 import base64
 
@@ -57,10 +57,10 @@ def prompt_compliance(text_file):
     return prompts
 
 def read_pdf(file):
-    pdf = PdfFileReader(file)
+    pdf = PdfReader(file)
     text = ''
-    for page in range(pdf.getNumPages()):
-        text += pdf.getPage(page).extractText()
+    for page in pdf.pages:
+        text += page.extract_text()
     return text
 
 st.title('Compliance Prueba de concepto extraer info')
