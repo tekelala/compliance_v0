@@ -75,9 +75,8 @@ for file in uploaded_files:
     all_text_df = pd.DataFrame({'All Text': [text]})
     df_all_text = pd.concat([df_all_text, all_text_df], ignore_index=True)
 
-st.title('Información para compliance')
 
-if st.button('Create'):
+if st.button('Extraer'):
     with st.spinner('Writing...'):
         for index, row in df_all_text.iterrows():
             # Create the 'prompts' variable
@@ -88,6 +87,8 @@ if st.button('Create'):
 
             # Display the result
             st.write(st.session_state.result)
+
+st.title('Información para compliance')
 
 # Allow the user to propose changes
 if st.session_state.result != "":
