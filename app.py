@@ -1,9 +1,9 @@
 import streamlit as st
 import requests
 import json
+from PyPDF2 import PdfFileReader
 import pandas as pd
-
-text_file = ""
+import base64
 
 # Initialize session state variables
 if "result" not in st.session_state:
@@ -56,29 +56,38 @@ def prompt_compliance(text_file):
 
     return prompts
 
+def read_pdf(file):
+    pdf = PdfFileReader(file)
+    text = ''
+    for page in range(pdf.getNumPages()):
+        text += pdf.getPage(page).extractText()
+    return text
+
+st.title('PDF Reader')
+
+uploaded_files = st.file_uploader("Choose PDF files", type="pdf", accept_multiple_files=True)
+
+df_info = pd.DataFrame()
+df_all_text = pd.DataFrame()
+
+for file in uploaded_files:
+    text = read_pdf(file)
+    all_text_df = pd.DataFrame({'All Text': [text]})
+    df_all_text = pd.concat([df_all_text, all_text_df], ignore_index=True)
 
 st.title('Compliance')
 
-# Initialize session state variables if not already done
-if "result" not in st.session_state:
-    st.session_state.result = ""
-if "prompts" not in st.session_state:
-    st.session_state.prompts = ""
-
-
-
 if st.button('Create'):
-    with st.spinner('Writting...'):
-        # Create the 'prompts' variable
-        st.session_state.prompts = prompt_compliance(text_file)
+    with st.spinner('Writing...'):
+        for index, row in df_all_text.iterrows():
+            # Create the 'prompts' variable
+            st.session_state.prompts = prompt_compliance(row['All Text'])
 
-        # Call the 'send_message()' function with the 'prompts' variable
-        st.session_state.result = create_text(st.session_state.prompts)
+            # Call the 'send_message()' function with the 'prompts' variable
+            st.session_state.result = create_text(st.session_state.prompts)
 
-        # Display the prompt
-        #st.write(st.session_state.prompts)
-        # Display the result
-        st.write(st.session_state.result)
+            # Display the result
+            st.write(st.session_state.result)
 
 # Allow the user to propose changes
 if st.session_state.result != "":
