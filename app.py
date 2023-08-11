@@ -97,3 +97,29 @@ if st.session_state.result != "":
             with st.spinner('Applying changes...'):
                 st.session_state.result = create_text(st.session_state.prompts)
             st.write(st.session_state.result)
+def download_link(object_to_download, download_filename, download_link_text):
+    """
+    Generates a link to download the given object_to_download.
+    """
+    if isinstance(object_to_download, pd.DataFrame):
+        object_to_download = object_to_download.to_excel(index=False)
+
+    # some strings <-> bytes conversions necessary here
+    b64 = base64.b64encode(object_to_download.encode()).decode()
+
+    return f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
+
+# Por ejemplo, después de procesar el archivo PDF y mostrar el resultado
+if st.session_state.result != "":
+    user_changes = st.text_input('¿Qué más quieres del archivo?')
+    if st.button('Responder'):
+        if user_changes:
+            st.session_state.prompts += f" Please follow these instructions: {user_changes.strip()}"
+            with st.spinner('Applying changes...'):
+                st.session_state.result = create_text(st.session_state.prompts)
+            st.write(st.session_state.result)
+    
+    # Agregando el enlace de descarga aquí
+    if not df_all_text.empty:  # Asegurándose de que el DataFrame no esté vacío
+        st.markdown(download_link(df_all_text, 'result.xlsx', 'Haz clic aquí para descargar los resultados en formato .xlsx'), unsafe_allow_html=True)
+
