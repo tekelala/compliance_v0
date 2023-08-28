@@ -1,20 +1,20 @@
 import streamlit as st
 
 def prompt_compliance(text_file):
-    prompts = f'''Role: You are a top data analyst carefully ingest the following text {text_file}  It does not matter if the information is with upper or lower letters. The key is to find the relevant information. Do not stop untill you find the information. Do the following tasks and answer always in Spanish.
-    Task 1: Search for Razón Social
-    Task 2: Search for Nit
-    Task 3: Search for Domicilio principal
-    Task 4: Search for Matrícula No.
-    Task 5: Search for Teléfono comercial 1
-    Task 6: Search for Teléfono comercial 2
-    Task 7: Search for Página web
-    Task 8: Search for Correo electrónico
-    Task 9: Search for tOBJETO SOCIAL
-    Task 10: Search for tREPRESENTANTE LEGAL PRINCIPAL
-    Task 11: Search for REPRESENTANTE LEGAL SUPLENTE
-    Task 12: Search for Actividad principal Código CIIU
-    Task 13: Search for Actividad secundaria Código CIIU
+    prompts = f'''Role: You are a top data analyst and you are going to receive information about companies. Carefully ingest the following text {text_file}  It does not matter if the information is with upper or lower letters. The key is to find the relevant information. Answer the following questions always in Spanish:
+    Task 1: What is the Razón Social (name of the company)?
+    Task 2: What is the Nit number (tax id number)?
+    Task 3: What is the Domicilio principal (address)?
+    Task 4: What is the Matrícula No. (registration number)?
+    Task 5: What is the Teléfono comercial 1 (phone number)?
+    Task 6: What is the Teléfono comercial 2 (phone number)?
+    Task 7: What is the Página web (website)?
+    Task 8: What is the Correo electrónico (email)?
+    Task 9: What is the OBJETO SOCIAL (social object)?
+    Task 10: What is the REPRESENTANTE LEGAL PRINCIPAL (representative legal principal)?
+    Task 11: What is the REPRESENTANTE LEGAL SUPLENTE (representative legal suplente)?
+    Task 12: What is the Actividad principal CÓDIGO CIIU (main activity code CIIU)?
+    Task 13: What is the Actividad secundaria CÓDIGO CIIU (secondary activity code CIIU)?
 
     '''
 
