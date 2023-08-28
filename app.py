@@ -102,7 +102,9 @@ for file in uploaded_files:
     parsed_df = parse_text_to_excel(text)
     df_all_text = pd.concat([df_all_text, parsed_df], ignore_index=True)
 
-# Extraer button logic
+df_extracted_data = pd.DataFrame()  # Create an empty DataFrame to store parsed data after pressing 'Extraer'
+
+# Inside the 'Extraer' button logic:
 if st.button('Extraer'):
     with st.spinner('Writing...'):
         for index, row in df_all_text.iterrows():
@@ -111,24 +113,10 @@ if st.button('Extraer'):
             
             # Parse the text from st.session_state.result
             parsed_df = parse_text_to_excel(st.session_state.result)
-            df_all_text = pd.concat([df_all_text, parsed_df], ignore_index=True)
+            df_extracted_data = pd.concat([df_extracted_data, parsed_df], ignore_index=True)
 
             st.write(st.session_state.result)
 
-def download_link(object_to_download, download_filename, download_link_text):
-    """
-    Generates a link to download the given object_to_download.
-    """
-    if isinstance(object_to_download, pd.DataFrame):
-        output = io.BytesIO()
-        object_to_download.to_excel(output, index=False)
-        object_to_download = output.getvalue()
-        
-    # some strings <-> bytes conversions necessary here
-    b64 = base64.b64encode(object_to_download).decode()
-
-    return f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
-
-# Adding the download link here
-if not df_all_text.empty:  # Making sure the DataFrame isn't empty
-    st.markdown(download_link(df_all_text, 'result.xlsx', 'Click here to download the results in .xlsx format'), unsafe_allow_html=True)
+# Adjust the download link to use df_extracted_data
+if not df_extracted_data.empty:
+    st.markdown(download_link(df_extracted_data, 'result.xlsx', 'Click here to download the results in .xlsx format'), unsafe_allow_html=True)
