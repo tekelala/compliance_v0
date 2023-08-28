@@ -67,7 +67,6 @@ st.title('Compliance Prueba de concepto extraer info')
 
 uploaded_files = st.file_uploader("Choose PDF files", type="pdf", accept_multiple_files=True)
 
-df_info = pd.DataFrame()
 df_all_text = pd.DataFrame()
 
 for file in uploaded_files:
@@ -75,18 +74,13 @@ for file in uploaded_files:
     all_text_df = pd.DataFrame({'All Text': [text]})
     df_all_text = pd.concat([df_all_text, all_text_df], ignore_index=True)
 
-
 if st.button('Extraer'):
     with st.spinner('Writing...'):
         for index, row in df_all_text.iterrows():
-            # Create the 'prompts' variable
             st.session_state.prompts = prompt_compliance(row['All Text'])
-
-            # Call the 'send_message()' function with the 'prompts' variable
             st.session_state.result = create_text(st.session_state.prompts)
-
-            # Display the result
             st.write(st.session_state.result)
+
 
 
 def download_link(object_to_download, download_filename, download_link_text):
@@ -103,7 +97,6 @@ def download_link(object_to_download, download_filename, download_link_text):
 
 
     
-    # Agregando el enlace de descarga aquí
-    if not df_all_text.empty:  # Asegurándose de que el DataFrame no esté vacío
-        st.markdown(download_link(df_all_text, 'result.xlsx', 'Haz clic aquí para descargar los resultados en formato .xlsx'), unsafe_allow_html=True)
-
+    # Adding the download link here
+if not df_all_text.empty:  # Making sure the DataFrame isn't empty
+    st.markdown(download_link(df_all_text, 'result.xlsx', 'Click here to download the results in .xlsx format'), unsafe_allow_html=True)
