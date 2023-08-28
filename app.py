@@ -104,17 +104,16 @@ for file in uploaded_files:
 
 df_extracted_data = pd.DataFrame()  # Create an empty DataFrame to store parsed data after pressing 'Extraer'
 
-# Inside the 'Extraer' button logic:
 if st.button('Extraer'):
     with st.spinner('Writing...'):
         for index, row in df_all_text.iterrows():
-            st.session_state.prompts = prompt_compliance(row['All Text'])
+            # Assuming you want to process each row with the prompt_compliance and create_text functions
+            # Convert the row (which is a Series) to a string representation
+            row_text = row.to_string()
+            st.session_state.prompts = prompt_compliance(row_text)
             st.session_state.result = create_text(st.session_state.prompts)
             
-            # Parse the text from st.session_state.result
-            parsed_df = parse_text_to_excel(st.session_state.result)
-            df_extracted_data = pd.concat([df_extracted_data, parsed_df], ignore_index=True)
-
+            # Display the result
             st.write(st.session_state.result)
 
 # Adjust the download link to use df_extracted_data
