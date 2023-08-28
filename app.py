@@ -54,7 +54,22 @@ def create_text(prompt):
 
 # Function to create the prompt for the decks generation
 def prompt_compliance(text_file):
-    prompts = f'''Role: Extract and present al the relevant information from {text_file}'''
+    prompts = f'''Role: You are a top data analyst extract and present information from {text_file}. Do the following tasks and answer always in Spanish.
+    Task 1: Identify the "Razón Social"
+    Task 2: Identify the "Nit"
+    Task 3: Identify the "Domicilio principal"
+    Task 4: Identify the "Matrícula No."
+    Task 5: Identify the "Teléfono comercial 1:"
+    Task 6: Identify the "Teléfono comercial 2:" 
+    Task 7: Identify the "Página web:"
+    Task 8: Identify the "Correo electrónico:"
+    Task 9: Identify the "OBJETO SOCIAL:"
+    Task 10: Identify the "REPRESENTANTE LEGAL PRINCIPAL"
+    Task 11: Identify the "REPRESENTANTE LEGAL SUPLENTE"
+    Task 12: Identify the "Actividad principal código CIIU:"
+    Task 13: Identify the "Actividad secundaria código CIIU:"
+    '''
+
 
     return prompts
 
