@@ -17,7 +17,7 @@ def prompt_compliance(text_file):
     Task 12: Identify the "Actividad principal código CIIU:"
     Task 13: Identify the "Actividad secundaria código CIIU:"
     
-    Here is an example of a text that you will receive: "Cámara de Comercio de Medellín para Antioquia
+    Here is an example of a text that you may receive, never use this text for your answers this is just an example: "Cámara de Comercio de Medellín para Antioquia
 CERTIFICADO DE EXISTENCIA Y REPRESENTACIÓN LEGAL
 Fecha de expedición: 11/07/2023 - 2:30:06 PM
 Recibo No.: 0025227835
