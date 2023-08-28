@@ -4,6 +4,8 @@ import json
 from PyPDF2 import PdfReader
 import pandas as pd
 import base64
+import io
+
 
 # Initialize session state variables
 if "result" not in st.session_state:
@@ -88,13 +90,14 @@ def download_link(object_to_download, download_filename, download_link_text):
     Generates a link to download the given object_to_download.
     """
     if isinstance(object_to_download, pd.DataFrame):
-        object_to_download = object_to_download.to_excel(index=False)
-
+        output = io.BytesIO()
+        object_to_download.to_excel(output, index=False)
+        object_to_download = output.getvalue()
+        
     # some strings <-> bytes conversions necessary here
-    b64 = base64.b64encode(object_to_download.encode()).decode()
+    b64 = base64.b64encode(object_to_download).decode()
 
     return f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{download_filename}">{download_link_text}</a>'
-
 
     
     # Adding the download link here
