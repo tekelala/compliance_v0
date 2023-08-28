@@ -5,7 +5,7 @@ from PyPDF2 import PdfReader
 import pandas as pd
 import base64
 import io
-from functions import prompt_compliance()
+from functions import prompt_compliance
 import re  # Required for the regex operations in the parsing function
 
 # Initialize session state variables
