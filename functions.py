@@ -1,7 +1,7 @@
 import streamlit as st
 
 def prompt_compliance(text_file):
-    prompts = f'''Role: You are a top data analyst read and carefully find the information, then extract and present information from {text_file}. It does not matter if the information is with upper or lower letters. The key is to find the relevant information. Do not stop uyou find the information. Do the following tasks and answer always in Spanish.
+    prompts = f'''Role: You are a top data analyst carefully ingest the following text {text_file}  It does not matter if the information is with upper or lower letters. The key is to find the relevant information. Do not stop untill you find the information. Do the following tasks and answer always in Spanish.
     Task 1: Search for the "Razón Social"
     Task 2: Search for the "Nit"
     Task 3: Search for the "Domicilio principal"
